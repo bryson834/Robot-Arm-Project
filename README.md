@@ -42,7 +42,7 @@ sudo ./build_project
 
 ### ***How to use on Windows System (if applicable):
 
-#### . Download Ubuntu.
+#### 1. Download Ubuntu.
 
 - https://ubuntu.com/download/desktop
 
