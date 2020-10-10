@@ -1,70 +1,66 @@
 # Robot-Arm-Project README
 
+<Enter Description Here>
 
 ### How to use on Raspberry Pi and/or Linux System (*to run on windows, check below for instructions)
 
-**1. Install Dependencies:**
+#### 1. Install Dependencies:
 
-    - install, git, libusb-1.0-0-dev g++ build-essential
-    
-    ``
-    sudo apt-get install git libusb-1.0-0-dev g++ build-essential
-    ``
+- install, git, libusb-1.0-0-dev g++ build-essential
 
-**2. Make sure you have this repository cloned**
+``
+sudo apt-get install git libusb-1.0-0-dev g++ build-essential
+``
 
-    - https://github.com/bryson834/Robot-Arm-Project.git
+#### 2. Make sure you have this repository cloned
 
-    ``
-    git clone https://github.com/bryson834/Robot-Arm-Project.git
-    ``
+- https://github.com/bryson834/Robot-Arm-Project.git
 
-**3. Make the location of the repo your current working directory**
+``
+git clone https://github.com/bryson834/Robot-Arm-Project.git
+``
 
-**4. In the terminal window, type:**
+#### 3. Make the location of the repo your current working directory
 
-    ``
-    cd Robot-Arm-Project && ./build_libpixyusb2.sh
-    ``
+#### 4. In the terminal window, type:
 
+``
+cd Robot-Arm-Project && ./build_libpixyusb2.sh
+``
 
-    ``
-    ./build_project
-    ``
+``
+./build_project
+``
 
+``
+cd ../build/mainfunction
+``
 
-    ``
-    cd ../build/mainfunction
-    ``
+``
+sudo ./build_project
+``
 
+### ***How to use on Windows System (if applicable):
 
-    ``
-    sudo ./build_project
-    ``
+#### . Download Ubuntu.
 
-## ***How to use on Windows System (if applicable):
+- https://ubuntu.com/download/desktop
 
-**1. Download Ubuntu.**
+#### 2. Enable Windows Subsystem for Linux (WSL)**
 
-    - https://ubuntu.com/download/desktop
+- Follow the instructions in the link:
 
-**2. Enable Windows Subsystem for Linux (WSL)**
+https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
-    - Follow the instructions in the link:
+#### 3. Once WSL is enabled, open command prompt.
 
-    https://docs.microsoft.com/en-us/windows/wsl/install-win10
+#### 4. Type wsl:
 
-**3. Once WSL is enabled, open command prompt.**
+``
+C:\...\ wsl
+``
 
-**4. Type wsl:**
-
-    ``
-    C:\...\ wsl
-    ``
-
-**5. Make sure everything is up to date, and follow steps for Raspberry Pi/Linux Systems**
-
-
+#### 5. Make sure everything is up to date, and follow steps for Raspberry Pi/Linux Systems
 
 ## **Directory Information:**
 
