@@ -1,18 +1,4 @@
-//
-// begin license header
-//
-// This file is part of Pixy CMUcam5 or "Pixy" for short
-//
-// All Pixy source code is provided under the terms of the
-// GNU General Public License v2 (http://www.gnu.org/licenses/gpl-2.0.html).
-// Those wishing to use Pixy source code, software and/or
-// technologies under different licensing terms should contact us at
-// cmucam@cs.cmu.edu. Such licensing terms are available for
-// all portions of the Pixy codebase presented here.
-//
-// end license header
-//
-
+#include <math.h>
 #include <signal.h>
 #include "libpixyusb2.h"
 
@@ -29,25 +15,49 @@ void handle_SIGINT(int unused)
 
 void  get_blocks()
 {
-  int  Block_Index;
 
-  // Query Pixy for blocks //
+  int  Block_Index;
+  double moveAngle, dieAngle, dx, dy;
+  double initialAngle = 90;
+  
   pixy.ccc.getBlocks();
 
-  // Were blocks detected? //
   if (pixy.ccc.numBlocks)
   {
-    // Blocks detected - print them! //
+    int x = pixy.ccc.blocks->m_x;
+    int y = pixy.ccc.blocks->m_y;
+    
+    printf("X = %d\n", x);
+    printf("Y = %d\n", y);
 
-    printf ("Detected %d block(s)\n", pixy.ccc.numBlocks);
-
-    for (Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
+    //center of arm is (103,206)
+    if (x < 103)  //left side of arm
     {
-	  printf("Testing --> ");
-	  printf("X = %d\n", pixy.ccc.blocks->m_x);
-      printf ("  Block %d: ", Block_Index + 1);
-      pixy.ccc.blocks[Block_Index].print();
+      dx = (103 - x);
+      dy = (206 - y);
+      dieAngle = atan2(dy, dx);
+      moveAngle = dieAngle - initialAngle;
     }
+    else if (x > 103) //right side of arm
+    {
+      dx = (x - 103);
+      dy = (206 - y);
+      dieAngle = (180 - atan2(dy, dx));
+      moveAngle = dieAngle - initialAngle;
+    }
+    else  //down the center
+    {
+      dieAngle = 90;
+      moveAngle = 0;
+    }
+
+    printf("Die Angle = %f\n", dieAngle);
+    printf("Move Angle = %f\n", moveAngle);
+
+    //for (Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
+    //{
+    //  pixy.ccc.blocks[Block_Index].print();
+    //}
   }
 }
 
@@ -59,7 +69,7 @@ int main()
   signal (SIGINT, handle_SIGINT);
 
   printf ("=============================================================\n");
-  printf ("= PIXY2 Get Blocks Demo                                     =\n");
+  printf ("= PIXY 2 Object Detection Demo                                    =\n");
   printf ("=============================================================\n");
 
   printf ("Connecting to Pixy2...");
@@ -78,19 +88,6 @@ int main()
     printf ("Success\n");
   }
 
-  // Get Pixy2 Version information //
-  {
-    Result = pixy.getVersion();
-
-    if (Result < 0)
-    {
-      printf ("pixy.getVersion() returned %d\n", Result);
-      return Result;
-    }
-
-    pixy.version->print();
-  }
-
   // Set Pixy2 to color connected components program //
   pixy.changeProg("color_connected_components");
 
@@ -100,7 +97,6 @@ int main()
 
     if (run_flag == false)
     {
-      // Exit program loop //
       break;
     }
   }

@@ -12,7 +12,7 @@
 sudo apt-get install git libusb-1.0-0-dev g++ build-essential
 ``
 
-#### 2. Make sure you have this repository cloned
+#### 2. Make sure you have this repository cloned to your desired location
 
 - https://github.com/bryson834/Robot-Arm-Project.git
 
@@ -20,20 +20,24 @@ sudo apt-get install git libusb-1.0-0-dev g++ build-essential
 git clone https://github.com/bryson834/Robot-Arm-Project.git
 ``
 
-#### 3. Make the location of the repo your current working directory
+#### 3. Make the 'Robot-Arm-Project' repo your current working directory
+
+``
+cd Robot-Arm-Project
+``
 
 #### 4. In the terminal window, type:
 
 ``
-cd Robot-Arm-Project && ./build_libpixyusb2.sh
+cd scripts && ./build_libpixyusb2.sh
 ``
 
 ``
-./build_project
+./build_project.sh
 ``
 
 ``
-cd ../build/mainfunction
+cd ../build/build_project
 ``
 
 ``
