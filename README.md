@@ -24,36 +24,42 @@
     cd Robot-Arm-Project && ./build_libpixyusb2.sh
     ``
 
+
     ``
     ./build_project
     ``
+
 
     ``
     cd ../build/mainfunction
     ``
 
+
     ``
     sudo ./build_project
     ``
 
-## **How to use on Windows System (if applicable):
+## ***How to use on Windows System (if applicable):
 
 **1. Download Ubuntu.**
+
     - https://ubuntu.com/download/desktop
 
 **2. Enable Windows Subsystem for Linux (WSL)**
 
-    Follow the instructions in the link:
+    - Follow the instructions in the link:
+
     https://docs.microsoft.com/en-us/windows/wsl/install-win10
 
-**3. Once WSL is enabled, open command prompt**
+**3. Once WSL is enabled, open command prompt.**
 
 **4. Type wsl:**
+
     ``
     C:\...\User\ wsl
     ``
 
-**5. Make sure all commands are up to date, and follow the steps for Raspberry Pi/Linux Systems**
+**5. Make sure everything is up to date, and follow steps for Raspberry Pi/Linux Systems**
 
 
 
