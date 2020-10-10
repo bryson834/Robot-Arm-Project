@@ -77,4 +77,3 @@ pixy cam
 
 **/src/host:** contains the code that runs on your computer (arduino, header, 
 and driver files)
-
