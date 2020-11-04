@@ -22,42 +22,45 @@ void  get_blocks()
   
   pixy.ccc.getBlocks();
 
-  if (pixy.ccc.numBlocks)
-  {
-    int x = pixy.ccc.blocks->m_x;
-    int y = pixy.ccc.blocks->m_y;
-    
-    printf("X = %d\n", x);
-    printf("Y = %d\n", y);
+  for(int i = 0; i < 1; i++){
 
-    //center of arm is (103,206)
-    if (x < 103)  //left side of arm
+    if (pixy.ccc.numBlocks)
     {
-      dx = (103 - x);
-      dy = (206 - y);
-      dieAngle = atan2(dy, dx);
-      moveAngle = dieAngle - initialAngle;
-    }
-    else if (x > 103) //right side of arm
-    {
-      dx = (x - 103);
-      dy = (206 - y);
-      dieAngle = (180 - atan2(dy, dx));
-      moveAngle = dieAngle - initialAngle;
-    }
-    else  //down the center
-    {
-      dieAngle = 90;
-      moveAngle = 0;
-    }
+      int x = pixy.ccc.blocks->m_x;
+      int y = pixy.ccc.blocks->m_y;
 
-    printf("Die Angle = %f\n", dieAngle);
-    printf("Move Angle = %f\n", moveAngle);
+      printf("X = %d\n", x);
+      printf("Y = %d\n", y);
 
-    //for (Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
-    //{
-    //  pixy.ccc.blocks[Block_Index].print();
-    //}
+      //center of arm is (103,206)
+      if (x < 103)  //left side of arm
+      {
+        dx = (103 - x);
+        dy = (206 - y);
+        dieAngle = atan2(dy, dx);
+        moveAngle = dieAngle - initialAngle;
+      }
+      else if (x > 103) //right side of arm
+      {
+        dx = (x - 103);
+        dy = (206 - y);
+        dieAngle = (180 - atan2(dy, dx));
+        moveAngle = dieAngle - initialAngle;
+      }
+      else  //down the center
+      {
+        dieAngle = 90;
+        moveAngle = 0;
+      }
+
+      printf("Die Angle = %f\n", dieAngle);
+      printf("Move Angle = %f\n", moveAngle);
+
+      //for (Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
+      //{
+      //  pixy.ccc.blocks[Block_Index].print();
+      //}
+    }
   }
 }
 
