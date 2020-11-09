@@ -37,11 +37,11 @@ cd scripts && ./build_libpixyusb2.sh
 ``
 
 ``
-cd ../build/build_project
+cd ../build
 ``
 
 ``
-sudo ./build_project
+sudo ./main
 ``
 
 ### ***How to use on Windows System (if applicable):
