@@ -33,31 +33,39 @@ void  get_blocks()
   	int  Block_Index;
     double moveAngle, dieAngle, dx, dy;
     double initialAngle = 90;
+    const char *objectArray[3];
+    objectArray[0] = "Red Cup";
+    objectArray[1] = "Yellow Cylinder";
+    objectArray[2] = "Green Cylinder";
+    objectArray[3] = "Blue Die";
 
     pixy.ccc.getBlocks();
 
-    int x = pixy.ccc.blocks->m_x;
-    int y = pixy.ccc.blocks->m_y;
+    double x = pixy.ccc.blocks->m_x;
+    double y = pixy.ccc.blocks->m_y;
 
-    printf("\n%d Object(s) Detected", pixy.ccc.numBlocks);
     for(Block_Index = 0; Block_Index < pixy.ccc.numBlocks; Block_Index++)
     {
-      printf("\nObject %d: \n", Block_Index + 1);
+      printf("\n%s\n", objectArray[Block_Index]);
+      printf("All Data: ");
       pixy.ccc.blocks[Block_Index].print();
+      printf("X = %d\n", x);
+      printf("Y = %d\n", y);
+      
 
 
       //center of arm is (103,206)
-      	if (x < 103)  //left side of arm
+      	if (x < 157.5)  //left side of arm
       	{
-         	   dx = (103 - x);
-         	   dy = (206 - y);
+         	   dx = (157.5 - x);
+         	   dy = (207 - y);
          	   dieAngle = atan2(dy, dx);
          	   moveAngle = dieAngle - initialAngle;
       	}
-      	else if (x > 103) //right side of arm
+      	else if (x > 157.5) //right side of arm
       	{
-         	   dx = (x - 103);
-         	   dy = (206 - y);
+         	   dx = (x - 157.5);
+         	   dy = (207 - y);
          	   dieAngle = (180 - atan2(dy, dx));
          	   moveAngle = dieAngle - initialAngle;
       	}
