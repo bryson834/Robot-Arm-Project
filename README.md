@@ -48,8 +48,17 @@ sudo ./main
 
 ``
 chmod +x build_libpixyusb2.sh
+``
+
+``
 chmod +x build_project.sh
+``
+
+``
 sed -i -e 's/\r$//' build_libpixyusb2.sh
+``
+
+``
 sed -i -e 's/\r$//' build_project.sh
 ``
 
