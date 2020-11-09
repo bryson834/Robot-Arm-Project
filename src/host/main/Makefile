@@ -2,13 +2,13 @@ CXX=g++
 CPPFLAGS=-g -fpermissive -I/usr/include/libusb-1.0 -I../libpixyusb2/include -I../arduino/libraries/Pixy2
 LDLIBS=../../../build/libpixy2.a -lusb-1.0
 
-SRCS=build_project.cpp
+SRCS=main.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: get_blocks
 
 clean:
-	rm -f *.o build_project
+	rm -f *.o main
 
 get_blocks: $(OBJS)
-	$(CXX) $(LDFLAGS) -o build_project $(OBJS) $(LDLIBS)
+	$(CXX) $(LDFLAGS) -o main $(OBJS) $(LDLIBS)

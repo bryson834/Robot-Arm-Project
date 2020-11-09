@@ -15,7 +15,7 @@ function RED_TEXT {
 
 WHITE_TEXT
 echo "########################################################################################"
-echo "# Building Robot Arm Code...                                                      #"
+echo "# Building Get Blocks CPP Demo...                                                      #"
 echo "########################################################################################"
 NORMAL_TEXT
 
@@ -25,13 +25,13 @@ TARGET_BUILD_FOLDER=../build
 
 mkdir $TARGET_BUILD_FOLDER
 
-rm $TARGET_BUILD_FOLDER/build_project
+rm $TARGET_BUILD_FOLDER/main
 cd ../src/host/main
 pwd
 make
-mv ./build_project ../../../build
+mv ./main ../../../build
 
-if [ -f ../../../build/build_project ]; then
+if [ -f ../../../build/main ]; then
   GREEN_TEXT
   printf "SUCCESS "
 else
