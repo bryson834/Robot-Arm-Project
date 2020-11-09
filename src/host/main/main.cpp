@@ -20,62 +20,53 @@
 Pixy2        pixy;
 static bool  run_flag = true;
 
-
-void handle_SIGINT(int unused)
-{
-  // On CTRL+C - abort! //
-
-  run_flag = false;
-}
-
 void  get_blocks()
 {
   	int  Block_Index;
-    double moveAngle, dieAngle, dx, dy;
+    double objectAngle, moveAngle, dx, dy;
     double initialAngle = 90;
     const char *objectArray[3];
     objectArray[0] = "Red Cup";
-    objectArray[1] = "Yellow Cylinder";
+    objectArray[1] = "Yellow Peg";
     objectArray[2] = "Green Cylinder";
     objectArray[3] = "Blue Die";
 
     pixy.ccc.getBlocks();
 
-    double x = pixy.ccc.blocks->m_x;
-    double y = pixy.ccc.blocks->m_y;
-
     for(Block_Index = 0; Block_Index < pixy.ccc.numBlocks; Block_Index++)
-    {
-      printf("\n%s\n", objectArray[Block_Index]);
+    { 
+      int x = pixy.ccc.blocks[Block_Index].m_x;
+      int y = pixy.ccc.blocks[Block_Index].m_y;
+     
+      printf("----------------------------------------------------------------------\n");
+      printf("%s\n", objectArray[Block_Index]);
       printf("All Data: ");
       pixy.ccc.blocks[Block_Index].print();
-      printf("X = %d\n", x);
-      printf("Y = %d\n", y);
-      
-
 
       //center of arm is (103,206)
       	if (x < 157.5)  //left side of arm
       	{
          	   dx = (157.5 - x);
          	   dy = (207 - y);
-         	   dieAngle = atan2(dy, dx);
-         	   moveAngle = dieAngle - initialAngle;
+         	   objectAngle = atan2(dy, dx);
+         	   moveAngle = objectAngle - initialAngle;
       	}
       	else if (x > 157.5) //right side of arm
       	{
          	   dx = (x - 157.5);
          	   dy = (207 - y);
-         	   dieAngle = (180 - atan2(dy, dx));
-         	   moveAngle = dieAngle - initialAngle;
+         	   objectAngle = (180 - atan2(dy, dx));
+         	   moveAngle = objectAngle - initialAngle;
       	}
       	else  //down the center
       	{
-         	   dieAngle = 90;
+         	   objectAngle = 90;
          	   moveAngle = 0;
       	}
 
-      	printf("Die Angle = %f\n", dieAngle);
+        printf("\nX: %i\n", x);
+        printf("Y: %i\n\n", y);
+      	printf("%s Angle = %f\n", objectArray[Block_Index], objectAngle);
       	printf("Move Angle = %f\n", moveAngle);
     }
 }
@@ -84,14 +75,11 @@ int main()
 {
   int  Result;
 
-  // Catch CTRL+C (SIGINT) signals //
-  signal (SIGINT, handle_SIGINT);
-
   printf ("=============================================================\n");
-  printf ("= PIXY2 Get Blocks Demo                                     =\n");
+  printf ("= Robot Arm Location Code                                     =\n");
   printf ("=============================================================\n");
 
-  printf ("Connecting to Pixy2...");
+  printf ("Connecting to Pixy2 Camera...");
 
   // Initialize Pixy2 Connection //
   {
@@ -107,32 +95,13 @@ int main()
     printf ("Success\n");
   }
 
-  // Get Pixy2 Version information //
-  {
-    Result = pixy.getVersion();
-
-    if (Result < 0)
-    {
-      printf ("pixy.getVersion() returned %d\n", Result);
-      return Result;
-    }
-
-    pixy.version->print();
-  }
-
   // Set Pixy2 to color connected components program //
   pixy.changeProg("color_connected_components");
-
-  while(1)
+ 
+  int a = 1;
+  while(a)
   {
     get_blocks();
-
-    if (run_flag == false)
-    {
-      // Exit program loop //
-      break;
-    }
+    a = 0;
   }
-
-  printf ("PIXY2 Get Blocks Demo Exit\n");
 }
