@@ -44,6 +44,17 @@ cd ../build
 sudo ./main
 ``
 
+#### Note: If permission denied, bash error, or any error in running *.sh files, run these commands:
+
+``
+chmod +x build_libpixyusb2.sh
+chmod +x build_project.sh
+sed -i -e 's/\r$//' build_libpixyusb2.sh
+sed -i -e 's/\r$//' build_project.sh
+``
+
+
+
 ### ***How to use on Windows System (if applicable):
 
 #### 1. Download Ubuntu.
