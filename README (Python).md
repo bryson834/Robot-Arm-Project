@@ -19,7 +19,7 @@ sudo apt-get install swig git libusb-1.0-0-dev g++ build-essential
 #### 3. Make 'Python_Demo' you current directory
 
 ``
-cd Python_Demo
+cd Robot-Arm-Project
 ``
 
 #### 4. Build the project using these commands:
@@ -29,7 +29,7 @@ cd scripts && ./build_libpixyusb2.sh
 ``
 
 ``
-./build_get_blocks_python_demo.sh
+./build_python_demo.sh
 ``
 
 ``
@@ -47,7 +47,7 @@ chmod +x build_libpixyusb2.sh
 ``
 
 ``
-chmod +x build_get_blocks_demo.sh
+chmod +x build_python_demos.sh
 ``
 
 ``
@@ -55,5 +55,5 @@ sed -i -e 's/\r$//' build_libpixyusb2.sh
 ``
 
 ``
-sed -i -e 's/\r$//' build_get_blocks_demo.sh
+sed -i -e 's/\r$//' build_python_demos.sh
 ``
