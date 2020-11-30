@@ -1,13 +1,10 @@
 from __future__ import print_function
-import pixy 
 from ctypes import *
 from pixy import *
-import math
 import numpy as np
-import time
-import serial
+import math, pixy, time, serial
 
-print("Pixy2 Python Get Blocks Demo")
+print("Pixy2 Camera Python Get Blocks Demo")
 print("---------------------------------------")
 
 # Initialize Pixy2 Camera connection
@@ -25,16 +22,15 @@ class Blocks (Structure):
     ("m_index", c_uint),    #Tracking index of block data
     ("m_age", c_uint) ]     #Number of frames given block has tracked
 
-# Create 'blocks' array based on Pixy2 data
-blocks = BlockArray(100)
+blocks = BlockArray(100)  # Create 'blocks' array based on Pixy2 data
 initialAngle = 90   #Initial Angle of arm (90 degrees)
 arc = 0   #initialize arc #
 
 # Create serial connection between Raspberry Pi & Arduino 
-ser = serial.Serial('/dev/ttyACM1', 115200, timeout=1)
+ser = serial.Serial('/dev/ttyACM2', 115200, timeout=1)
 ser.flush()
 
-# Count of the # of blocks seen
+# Count of the # of blocks captured
 count = pixy.ccc_get_blocks (100, blocks)
 
 #run loop continuously
@@ -43,12 +39,19 @@ while a:
       
   # Print out each object that was detected
   for i in range(0, count):
+    if blocks[i].m_signature == 1:
+      print("Red Cup Detected!")
+    elif blocks[i].m_signature == 5:
+      print("Blue Die Detected!")
+
+    # Print signature #, and x,y coordinates
     print("SIG = %3d X = %3d Y = %3d" % (blocks[i].m_signature, blocks[i].m_x, blocks[i].m_y))
      
     # Establish x,y coordinate data that will be manipulated in 
     # order to determine location for arm to know where to move
     x1 = blocks[i].m_x
     y1 = blocks[i].m_y
+    sig = blocks[i].m_signature
 
     # If on the Left side of the arm
     if x1 < 157.5:
@@ -84,13 +87,13 @@ while a:
       radius = math.sqrt(np.square(xtest) + np.square(ytest))
       if radius > 55 and radius < 85:
         arc = 1
-        print("Arc: %i\n" % arc)
+        print("\nArc: %i" % arc)
       elif radius > 95 and radius < 125:
         arc = 2
-        print("Arc: %i\n" % arc)
+        print("\nArc: %i" % arc)
       elif radius > 135 and radius < 155:
         arc = 3
-        print("Arc: %i\n" % arc)
+        print("\nArc: %i" % arc)
 
     # If directly at 90 degrees (middle, in front of arm)
     else:
@@ -101,29 +104,33 @@ while a:
       radius = 207 - y1
       if radius > 55 and radius < 85:
         arc = 1
-        print("Arc: %i" % arc)
+        print("\nArc: %i" % arc)
       elif radius > 95 and radius < 125:
         arc = 2
-        print("Arc: %i" % arc)
+        print("\nArc: %i" % arc)
       elif radius > 135 and radius < 155:
         arc = 3
-        print("Arc: %i" % arc)
+        print("\nArc: %i" % arc)
 
     # Print object angle and move angle for arm
     print("Object Angle = %f" % objectAngle)
     print("Move Angle = %f" % moveAngle)
           
-
     # Create array of data that will be sent 'serially' to Arduino
-    sendlist = [str(int(moveAngle)), str(arc)]
+    sendlist = [str(sig), str(int(objectAngle)), str(arc), str(count)]
     send = ', '.join(sendlist)
-    print("Send:", send)
+    time.sleep(1)
+    #if (ser.inWaiting):
     ser.write(send.encode('utf-8'))
+    print("Send:", send)
+    time.sleep(2)
     receive = ser.readline().decode('utf-8', 'replace').rstrip()
     print("Receive: ", receive)
     print("---------------------------------------")
     
-    time.sleep(2)
+    time.sleep(1)
+  
+  a = 0
 
 
 
